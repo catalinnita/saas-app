@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
+import LoginPage from './components/pages/login-page';
+import RegisterPage from './components/pages/register-page';
+import ResetPasswordPage from './components/pages/reset-password-page';
 import './App.css';
 
 const App = () => {
@@ -8,7 +10,7 @@ const App = () => {
     <Switch>
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
-      <Route path="/recover-password" component={RecoverPassword} />
+      <Route path="/reset-password" component={ResetPasswordPage} />
     </Switch>
   );
 }
