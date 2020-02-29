@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Label from '../atoms/label';
 import Input from '../atoms/input';
 
+import './fieldset.scss';
+
 const FieldPassword = props => (
   <fieldset>
   	<Label 

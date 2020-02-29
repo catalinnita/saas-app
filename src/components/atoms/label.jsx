@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './label.scss';
+
 const Label = props => (
   <label
     className={props.classNames}

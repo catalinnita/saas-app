@@ -5,6 +5,8 @@ import FieldText from '../molecules/field-text';
 import FieldPassword from '../molecules/field-password';
 import Button from '../atoms/button';
 
+import './form-box.scss';
+
 const EmailFieldProps = {
   name: 'Email',
   label: 'Email',

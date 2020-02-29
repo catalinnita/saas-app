@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './button.scss';
 
 const Button = props => (
   <button
     aria-label={props.ariaLabel}
-    className={props.classNames}
+    className="button {props.classNames}"
     onClick={props.clickCallback}
   >{props.text}</button>
 );

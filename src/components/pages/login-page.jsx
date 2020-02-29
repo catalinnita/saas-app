@@ -1,8 +1,10 @@
 import React from 'react';
-import LoginBox from '../organisms/login-box'
+import LoginBox from '../organisms/login-box';
+
+import './page.scss';
 
 const LoginPage = () => (
-    <div>
+    <div className="page page--login">
         <h1>Login</h1>
         <LoginBox 
             clickCallback={() => { console.log('click'); }}

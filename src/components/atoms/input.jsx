@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './input.scss';
+
 const Input = props => (
   <input
     aria-label={props.ariaLabel}
