@@ -6,27 +6,29 @@ import FieldPassword from '../molecules/field-password';
 import Button from '../atoms/button';
 
 const RegisterBox = props => (
-  <div className='box'>
-    <FieldText 
+  <form id="registerForm" className='box' onSubmit={props.submitCallback}>
+    <FieldText
+      name='name' 
       label='Name'
       placeholder='Name'
     />
     <FieldText 
+      name='email' 
       label='Email'
       placeholder='Email'
     />
     <FieldPassword
+      name='password'
       label='Password'
     />
     <Button 
-      clickCallback={props.clickCallback}
       text='Register'
     />
-  </div>
+  </form>
 );
 
 RegisterBox.propTypes = {
-  clickCallback: PropTypes.func.isRequired,
+  submitCallback: PropTypes.func.isRequired,
 };
 
 export default RegisterBox;
