@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { Store } from '../../Store.js';
 import RegisterBox from '../organisms/register-box'
 
 const registerService = (data) => {
@@ -10,14 +11,21 @@ const registerService = (data) => {
 }
 
 const RegisterPage = () => {
-    const [ state, setState ] = useState();
+    const globalState = useContext(Store);
+    const { state } = globalState;
 
     const registerSubmit = (event) => {
         event.preventDefault();
         const inputs = event.target.querySelectorAll('input');
         const names = [...inputs].map(input => input.name);
-
-        console.log(state);
+        const parameters = Object.keys(state)
+          .filter(key => names.includes(key))
+          .reduce((obj, key) => {
+            obj[key] = state[key];
+            return obj;
+          }, {});
+        
+        registerService(parameters);
     } 
 
     return (
