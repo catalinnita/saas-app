@@ -15,7 +15,8 @@ const FieldPassword = props => (
   		classNames={['input--password']}
 		name={props.name}
 		placeholder={props.placeholder}
-  		type='password'  		
+		type='password'
+		autoComplete='current-password'  		
   	/>
   </fieldset>
 );

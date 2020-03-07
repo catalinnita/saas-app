@@ -1,0 +1,10 @@
+{
+    "nocc": false,
+    "trial": 30,
+    "subscriptions": [
+        {
+            "name": "standard",
+            "price": 49
+        }
+    ]
+}

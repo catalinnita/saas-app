@@ -26,6 +26,7 @@ const Input = props => {
       placeholder={props.placeholder}
       type={props.type}
       defaultValue={props.value}
+      autoComplete={props.autoComplete}
       onChange={handleInputChange}
     />
   );
@@ -37,6 +38,7 @@ Input.defaultProps = {
   placeholder: '',
   type: 'text',
   value: '',
+  autoComplete: 'off',
 };
 
 Input.propTypes = {
@@ -46,6 +48,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.oneOf(['text', 'email', 'password', 'checkbox', 'radio']),
   value: PropTypes.string,
+  autoComplete: PropTypes.string,
 };
 
 export default Input;

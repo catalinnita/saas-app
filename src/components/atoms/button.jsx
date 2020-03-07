@@ -13,12 +13,13 @@ const Button = props => (
 Button.defaultProps = {
   ariaLabel: '',
   classNames: [],
+  clickCallback: null,
 };
 
 Button.propTypes = {
   ariaLabel: PropTypes.string,
   classNames: PropTypes.arrayOf(PropTypes.string),
-  clickCallback: PropTypes.func.isRequired,
+  clickCallback: PropTypes.func,
   text: PropTypes.string.isRequired,
 };
 
