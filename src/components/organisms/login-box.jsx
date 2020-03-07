@@ -8,32 +8,31 @@ import Button from '../atoms/button';
 import './form-box.scss';
 
 const EmailFieldProps = {
-  name: 'Email',
+  name: 'email',
   label: 'Email',
   placeholder: 'Email',
   ariaLabel: 'Email',
 }
 
 const PasswordFieldProps = {
-  name: 'Password',
+  name: 'password',
   label: 'Password',
   placeholder: 'Password',
   ariaLabel: 'Password',
 }
 
 const LoginBox = props => (
-  <div className='box'>
+  <form className='box' onSubmit={props.submitCallback}>
     <FieldText {...EmailFieldProps} />
     <FieldPassword {...PasswordFieldProps} />
     <Button 
-      clickCallback={props.clickCallback}
       text='Login'
     />
-  </div>
+  </form>
 );
 
 LoginBox.propTypes = {
-  clickCallback: PropTypes.func.isRequired,
+  submitCallback: PropTypes.func.isRequired,
 };
 
 export default LoginBox;

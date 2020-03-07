@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Store } from '../../Store.js';
 import RegisterBox from '../organisms/register-box'
 import Cookies from 'js-cookie'
-import {loginServices, registerService} from '../../services/authentication'
+import { loginServices, registerService } from '../../services/authentication'
 
 const RegisterPage = () => {
     const globalState = useContext(Store);
-    const { state, dispatch } = globalState;
+    const { state } = globalState;
 
     const registerSubmit = async (event) => {
         event.preventDefault();
@@ -41,7 +41,14 @@ const RegisterPage = () => {
 
         // set the token
         login.json().then(res => { 
+            const { dispatch } = globalState;
             Cookies.set('UID', res);
+            dispatch({
+                type: 'SET_STATE',
+                payload: {
+                    isLoggedIn: true,
+                }
+            });
         });
     } 
 

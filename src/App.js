@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { Store } from './Store.js';
 import LoginPage from './components/pages/login-page';
 import RegisterPage from './components/pages/register-page';
 import ResetPasswordPage from './components/pages/reset-password-page';
@@ -24,13 +24,21 @@ const LoggedOutRouter = () => {
   );
 }
 
-const App = () => {
-  const { token } = Cookies.get('UID') || false;
-  if (token) {
+const Wrapper = (props) => {
+  if (props.isLoggedIn) {
     return <LoggedInRouter />
   } else {
     return <LoggedOutRouter />
   }
 }
+
+const App = () => {
+  const globalState = useContext(Store);
+  const { state } = globalState;
+  return (
+    <Wrapper isLoggedIn={state.isLoggedIn} />
+  )
+}
+
 
 export default App;
