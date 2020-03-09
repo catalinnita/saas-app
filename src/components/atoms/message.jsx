@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './message.scss';
+
 
 const Message = props => (
   <div
     onClick={props.clickCallback}
-    className={props.classNames.join(' ')}
+    className={`message message--${props.type}`}
     ariaLabel={props.ariaLabel}
   >{props.text}</div>
 );
 
 Message.defaultProps = {
   ariaLabel: '',
-  classNames: '',
+  type: 'info',
+  clickCallback: () => {},
 };
 
 Message.propTypes = {
   ariaLabel: PropTypes.string,
-  classNames: PropTypes.arrayOf(PropTypes.string),
-  clickCallback: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  clickCallback: PropTypes.func,
   text: PropTypes.string.isRequired,
 };
 

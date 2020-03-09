@@ -9,6 +9,7 @@ import './page.scss';
 const LoginPage = () => {
     const globalState = useContext(Store);
     const { state } = globalState;
+    const { dispatch } = globalState;
     
     const loginSubmit = async (event) => {
         event.preventDefault();
@@ -24,18 +25,21 @@ const LoginPage = () => {
           
         const login = await loginServices(parameters);
         if (login.status !== 200) {
-            // do some error messaging here then go out
+            login.json().then(res => { 
+                dispatch({
+                    type: 'SET_STATE',
+                    payload: {
+                        errorMessage: res.message,
+                    },
+                });
+            });
             return;
         }
         
         login.json().then(res => { 
-            const { dispatch } = globalState;
             Cookies.set('UID', res);
             dispatch({
-                type: 'SET_STATE',
-                payload: {
-                    isLoggedIn: true,
-                }
+                type: 'SET_LOGIN',
             });
         });
     };
@@ -44,6 +48,7 @@ const LoginPage = () => {
         <div className="page page--login">
             <h1>Login</h1>
             <LoginBox 
+                errorMessage={state.errorMessage}
                 submitCallback={loginSubmit}
             />
         </div>

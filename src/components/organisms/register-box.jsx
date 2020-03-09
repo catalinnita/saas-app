@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import FieldText from '../molecules/field-text';
 import FieldPassword from '../molecules/field-password';
 import Button from '../atoms/button';
+import Message from '../atoms/message';
 
 const RegisterBox = props => (
   <form id="registerForm" className='box' onSubmit={props.submitCallback}>
+    { props.errorMessage &&
+    <Message 
+      type="error"
+      text={props.errorMessage}
+    /> }
     <FieldText
       name='name' 
       label='Name'
@@ -29,6 +35,7 @@ const RegisterBox = props => (
 
 RegisterBox.propTypes = {
   submitCallback: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 };
 
 export default RegisterBox;

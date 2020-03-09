@@ -7,6 +7,7 @@ import { loginServices, registerService } from '../../services/authentication'
 const RegisterPage = () => {
     const globalState = useContext(Store);
     const { state } = globalState;
+    const { dispatch } = globalState;
 
     const registerSubmit = async (event) => {
         event.preventDefault();
@@ -24,7 +25,14 @@ const RegisterPage = () => {
         // do register
         const register = await registerService(parameters);
         if (register.status !== 200) {
-            // do some error messaging here then go out
+            register.json().then(res => { 
+                dispatch({
+                    type: 'SET_STATE',
+                    payload: {
+                        errorMessage: res.message,
+                    },
+                });
+            });
             return;
         }
 
@@ -35,19 +43,22 @@ const RegisterPage = () => {
         // if register works fine do login
         const login = await loginServices(parameters);
         if (login.status !== 200) {
-            // do some error messaging here then go out
+            login.json().then(res => { 
+                dispatch({
+                    type: 'SET_STATE',
+                    payload: {
+                        errorMessage: res.message,
+                    },
+                });
+            });
             return;
         }
 
         // set the token
         login.json().then(res => { 
-            const { dispatch } = globalState;
             Cookies.set('UID', res);
             dispatch({
-                type: 'SET_STATE',
-                payload: {
-                    isLoggedIn: true,
-                }
+                type: 'SET_LOGIN',
             });
         });
     } 
@@ -56,6 +67,7 @@ const RegisterPage = () => {
         <div className="page page--register">
             <h1>Create account</h1>
             <RegisterBox 
+                errorMessage={state.errorMessage}
                 submitCallback={registerSubmit}
             />
         </div>

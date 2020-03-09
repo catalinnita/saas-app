@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FieldText from '../molecules/field-text';
 import FieldPassword from '../molecules/field-password';
 import Button from '../atoms/button';
+import Message from '../atoms/message';
 
 import './form-box.scss';
 
@@ -23,6 +24,11 @@ const PasswordFieldProps = {
 
 const LoginBox = props => (
   <form className='box' onSubmit={props.submitCallback}>
+    { props.errorMessage &&
+    <Message 
+      type="error"
+      text={props.errorMessage}
+    /> }
     <FieldText {...EmailFieldProps} />
     <FieldPassword {...PasswordFieldProps} />
     <Button 
@@ -33,6 +39,7 @@ const LoginBox = props => (
 
 LoginBox.propTypes = {
   submitCallback: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 };
 
 export default LoginBox;
