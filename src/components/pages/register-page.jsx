@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { Store } from '../../Store.js';
-import RegisterBox from '../organisms/register-box'
 import Cookies from 'js-cookie'
+import RegisterBox from '../organisms/register-box'
 import { loginServices, registerService } from '../../services/authentication'
+
+import './page.scss';
 
 const RegisterPage = () => {
   const globalState = useContext(Store);
@@ -11,8 +13,8 @@ const RegisterPage = () => {
   const doRegister = async (parameters) => {
     try {
       await registerService(parameters);
-      const { token } = await loginServices(parameters);
-      Cookies.set('UID', token);
+      const userData = await loginServices(parameters);
+      Cookies.set('UD', userData);
       dispatch({
         type: 'SET_LOGIN',
       });
@@ -35,13 +37,13 @@ const RegisterPage = () => {
   }
 
   return (
-      <div className="page page--register">
-          <h1>Create account</h1>
-          <RegisterBox
-              errorMessage={state.errorMessage}
-              submitCallback={registerSubmit}
-          />
-      </div>
+    <div className="page page--register">
+        <h1>Create account</h1>
+        <RegisterBox
+            errorMessage={state.errorMessage}
+            submitCallback={registerSubmit}
+        />
+    </div>
   );
 };
 

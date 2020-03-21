@@ -10,37 +10,29 @@ const LoginPage = () => {
   const globalState = useContext(Store);
   const { state, dispatch } = globalState;
 
-  const loginSubmit = async (event) => {
-    event.preventDefault();
-
-    const inputs = event.target.querySelectorAll('input');
-    const names = [...inputs].map(input => input.name);
-    const parameters = Object.keys(state)
-      .filter(key => names.includes(key))
-      .reduce((obj, key) => {
-        obj[key] = state[key];
-        return obj;
-      }, {});
-
-    const login = await loginServices(parameters);
-    if (login.status !== 200) {
-      login.json().then(res => {
-        dispatch({
-          type: 'SET_STATE',
-          payload: {
-            errorMessage: res.message,
-          },
-        });
-      });
-      return;
-    }
-
-    login.json().then(res => {
-      Cookies.set('UID', res);
+  const doLogin = async (parameters) => {
+    try {
+      const userData = await loginServices(parameters);
+      Cookies.set('UD', userData);
       dispatch({
         type: 'SET_LOGIN',
       });
-    });
+    }
+    catch(err) {
+      dispatch({
+        type: 'SET_STATE',
+        payload: {
+          errorMessage: err.message,
+        },
+      });
+    }
+  }
+
+  const loginSubmit = async (event) => {
+    event.preventDefault();
+    const parameters = state[event.target.id];
+
+    doLogin(parameters);
   };
 
   return (

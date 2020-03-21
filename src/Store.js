@@ -2,7 +2,7 @@ import React, {createContext, useReducer} from 'react';
 import Cookies from 'js-cookie';
 
 const getLoggedInStatus = () => {
-  return typeof Cookies.get('UID') !== 'undefined';
+  return typeof Cookies.get('UD') !== 'undefined';
 }
 
 const initialState = () => {
@@ -13,7 +13,6 @@ const initialState = () => {
 
 const Store = createContext(initialState());
 const { Provider } = Store;
-
 
 const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action = {type: ''}) => {
