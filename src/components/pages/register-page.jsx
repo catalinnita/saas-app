@@ -5,73 +5,44 @@ import Cookies from 'js-cookie'
 import { loginServices, registerService } from '../../services/authentication'
 
 const RegisterPage = () => {
-    const globalState = useContext(Store);
-    const { state } = globalState;
-    const { dispatch } = globalState;
+  const globalState = useContext(Store);
+  const { state, dispatch } = globalState;
 
-    const registerSubmit = async (event) => {
-        event.preventDefault();
-        
-        // build the parameters
-        const inputs = event.target.querySelectorAll('input');
-        const names = [...inputs].map(input => input.name);
-        const parameters = Object.keys(state)
-          .filter(key => names.includes(key))
-          .reduce((obj, key) => {
-            obj[key] = state[key];
-            return obj;
-          }, {});
-        
-        // do register
-        const register = await registerService(parameters);
-        if (register.status !== 200) {
-            register.json().then(res => { 
-                dispatch({
-                    type: 'SET_STATE',
-                    payload: {
-                        errorMessage: res.message,
-                    },
-                });
-            });
-            return;
-        }
+  const doRegister = async (parameters) => {
+    try {
+      await registerService(parameters);
+      const { token } = await loginServices(parameters);
+      Cookies.set('UID', token);
+      dispatch({
+        type: 'SET_LOGIN',
+      });
+    }
+    catch (err) {
+      dispatch({
+        type: 'SET_STATE',
+        payload: {
+          errorMessage: err.message,
+        },
+      });
+    }
+  }
 
-        // redirect to cc info form
+  const registerSubmit = (event) => {
+    event.preventDefault();
+    const parameters = state[event.target.id];
 
-        // create a subscription in stripe
+    doRegister(parameters);
+  }
 
-        // if register works fine do login
-        const login = await loginServices(parameters);
-        if (login.status !== 200) {
-            login.json().then(res => { 
-                dispatch({
-                    type: 'SET_STATE',
-                    payload: {
-                        errorMessage: res.message,
-                    },
-                });
-            });
-            return;
-        }
-
-        // set the token
-        login.json().then(res => { 
-            Cookies.set('UID', res);
-            dispatch({
-                type: 'SET_LOGIN',
-            });
-        });
-    } 
-
-    return (
-        <div className="page page--register">
-            <h1>Create account</h1>
-            <RegisterBox 
-                errorMessage={state.errorMessage}
-                submitCallback={registerSubmit}
-            />
-        </div>
-    );
+  return (
+      <div className="page page--register">
+          <h1>Create account</h1>
+          <RegisterBox
+              errorMessage={state.errorMessage}
+              submitCallback={registerSubmit}
+          />
+      </div>
+  );
 };
 
 export default RegisterPage;

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import FieldText from '../molecules/field-text';
+import FieldEmail from '../molecules/field-email';
 import FieldPassword from '../molecules/field-password';
 import Button from '../atoms/button';
 import Message from '../atoms/message';
@@ -29,11 +30,14 @@ const LoginBox = props => (
       type="error"
       text={props.errorMessage}
     /> }
-    <FieldText {...EmailFieldProps} />
+    <FieldEmail {...EmailFieldProps} />
     <FieldPassword {...PasswordFieldProps} />
     <Button 
       text='Login'
     />
+    <div>
+      <Link to="/register">Don't have an account, create one</Link>
+    </div>
   </form>
 );
 

@@ -5,15 +5,19 @@ import PropTypes from 'prop-types';
 import './input.scss';
 
 const Input = props => {
-  const globalState = useContext(Store); 
-  const { dispatch } = globalState;
- 
+  const globalState = useContext(Store);
+  const { state, dispatch } = globalState;
+
   const handleInputChange = e => {
     const { name, value } = e.target;
+    const form = e.target.closest('form').id;
     dispatch({
       type: 'SET_STATE',
       payload: {
-        [name]: value,
+        [form]: {
+          ...state[form],
+          [name]: value,
+        }
       }
     });
   }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Label from '../atoms/label';
 import Input from '../atoms/input';
 
-const FieldText = props => (
+const FieldEmail = props => (
   <fieldset>
   	<Label 
   		text={props.label}
@@ -13,22 +13,22 @@ const FieldText = props => (
   		classNames={['input--text']}
   		name={props.name}
   		placeholder={props.placeholder}
-			type='text'
+			type='email'
   		value={props.value}
   	/>
   </fieldset>
 );
 
-FieldText.defaultProps = {
+FieldEmail.defaultProps = {
   placeholder: '',
   value: '',
 };
 
-FieldText.propTypes = {
+FieldEmail.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,  
   placeholder: PropTypes.string,
   value: PropTypes.string,
 };
 
-export default FieldText;
+export default FieldEmail;
