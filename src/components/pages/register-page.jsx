@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Store } from '../../Store.js';
 import Cookies from 'js-cookie'
 import RegisterBox from '../organisms/register-box'
-import { loginServices, registerService } from '../../services/authentication'
+import { registerService } from '../../services/authentication'
 
 import './page.scss';
 
@@ -12,11 +12,10 @@ const RegisterPage = () => {
 
   const doRegister = async (parameters) => {
     try {
-      await registerService(parameters);
-      const userData = await loginServices(parameters);
-      Cookies.set('UD', userData);
+      const user = await registerService(parameters);
+      Cookies.set('UD', user);
       dispatch({
-        type: 'SET_LOGIN',
+        type: 'SET_USER_STATUS',
       });
     }
     catch (err) {

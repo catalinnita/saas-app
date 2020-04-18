@@ -1,5 +1,9 @@
+// const API_URL = 'http://sdata-api-gateway.herokuapp.com';
+import Cookies from 'js-cookie';
+const API_URL = 'http://localhost:3000';
+
 const loginServices = async (params) => {
-  const res = await fetch('http://sdata-api-gateway.herokuapp.com/auth/login', {
+  const res = await fetch(`${API_URL}/auth/login`, {
     method: 'post',
     body: JSON.stringify(params),
     headers: { 'Content-type': 'application/json' },
@@ -14,7 +18,7 @@ const loginServices = async (params) => {
 }
 
 const registerService = async (params) => {
-  const res = await fetch('http://sdata-api-gateway.herokuapp.com/auth/register', {
+  const res = await fetch(`${API_URL}/auth/register`, {
     method: 'post',
     body: JSON.stringify(params),
     headers: { 'Content-type': 'application/json' },
@@ -28,4 +32,23 @@ const registerService = async (params) => {
   }
 }
 
-export {loginServices, registerService}
+const paymentService = async (params) => {
+  const token = Cookies.get('UD');
+  const res = await fetch(`${API_URL}/auth/payment`, {
+    method: 'post',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+
+  if (res.ok) {
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
+}
+
+export { loginServices, registerService, paymentService }

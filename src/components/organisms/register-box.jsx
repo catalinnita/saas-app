@@ -11,31 +11,35 @@ import Message from '../atoms/message';
 import './form-box.scss';
 
 const RegisterBox = props => (
-  <form id="registerForm" className='box' onSubmit={props.submitCallback}>
-    {props.errorMessage &&
-      <Message
-        type="error"
-        text={props.errorMessage}
-      />}
-    <FieldText
-      name='name'
-      label='Name'
-      placeholder='Name'
-    />
-    <FieldEmail
-      name='email'
-      label='Email'
-      placeholder='Email'
-    />
-    <FieldPassword
-      name='password'
-      label='Password'
-    />
-    <Button
-      text='Register'
-    />
-    <div>
-      <Link to="/login">Already have an account, please login</Link>
+  <form id="registerForm" onSubmit={props.submitCallback}>
+    <div className="box">
+      {props.errorMessage &&
+        <Message
+          type="error"
+          text={props.errorMessage}
+        />}
+      <FieldText
+        name='name'
+        label='Name'
+        placeholder='John Doe'
+      />
+      <FieldEmail
+        name='email'
+        label='Email'
+        placeholder='name@domain.com'
+      />
+      <FieldPassword
+        name='password'
+        label='Password'
+        placeholder='min 6 letters, one capital, one number'
+      />
+      <Button
+        classNames={['button--right']}
+        text='Register'
+      />
+    </div>
+    <div className="box box--nobg">
+      <Link className="link" to="/login">Already have an account, please login</Link>
     </div>
   </form>
 );

@@ -1,4 +1,16 @@
 .box {
+  border-radius: 15px;
+  padding: 30px;
+  background-color: #ffffff;
   max-width: 300px;
   margin: 0 auto;
+  &--nobg {
+    background: transparent;
+    padding: 15px 10px;
+    text-align: center;;
+  }
+}
+
+.link {
+  color: #000000;
 }

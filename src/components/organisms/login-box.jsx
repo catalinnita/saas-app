@@ -12,31 +12,34 @@ import './form-box.scss';
 const EmailFieldProps = {
   name: 'email',
   label: 'Email',
-  placeholder: 'Email',
+  placeholder: 'name@domain.com',
   ariaLabel: 'Email',
 }
 
 const PasswordFieldProps = {
   name: 'password',
   label: 'Password',
-  placeholder: 'Password',
+  placeholder: 'chosen password',
   ariaLabel: 'Password',
 }
 
 const LoginBox = props => (
-  <form className='box' onSubmit={props.submitCallback}>
-    { props.errorMessage &&
-    <Message 
-      type="error"
-      text={props.errorMessage}
-    /> }
-    <FieldEmail {...EmailFieldProps} />
-    <FieldPassword {...PasswordFieldProps} />
-    <Button 
-      text='Login'
-    />
-    <div>
-      <Link to="/register">Don't have an account, create one</Link>
+  <form onSubmit={props.submitCallback}>
+    <div className="box">
+      { props.errorMessage &&
+      <Message
+        type="error"
+        text={props.errorMessage}
+      /> }
+      <FieldEmail {...EmailFieldProps} />
+      <FieldPassword {...PasswordFieldProps} />
+      <Button
+        classNames='button--right'
+        text='Login'
+        />
+    </div>
+    <div className="box box--nobg">
+      <Link className="link" to="/register">Don't have an account, create one</Link>
     </div>
   </form>
 );

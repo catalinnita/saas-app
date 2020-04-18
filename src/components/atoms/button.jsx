@@ -5,7 +5,7 @@ import './button.scss';
 const Button = props => (
   <button
     aria-label={props.ariaLabel}
-    className="button {props.classNames}"
+    className={`button ${props.classNames}`}
     onClick={props.clickCallback}
   >{props.text}</button>
 );

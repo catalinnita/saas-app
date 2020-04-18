@@ -1,13 +1,27 @@
-import React, {createContext, useReducer} from 'react';
+import React, { createContext, useReducer } from 'react';
+import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
+import dotenv from 'dotenv';
 
-const getLoggedInStatus = () => {
-  return typeof Cookies.get('UD') !== 'undefined';
+const getUserStatus = () => {
+  dotenv.config();
+  const UD = Cookies.get('UD');
+  if (typeof UD === 'undefined') {
+    return 'loggedOut';
+  } else {
+    const { subscriptionId } = jwt.verify(UD, process.env.REACT_APP_SECRET_KEY);
+    if (subscriptionId) {
+      return 'loggedIn';
+    } else {
+      return 'checkout';
+    }
+  }
 }
 
+// make the request every time when page is refreshed, use the cookie just for token
 const initialState = () => {
   return {
-    isLoggedIn: getLoggedInStatus(),
+    userStatus: getUserStatus(),
   }
 }
 
@@ -22,7 +36,7 @@ const StateProvider = ( { children } ) => {
           ...state,
           ...action.payload,
         };
-      case 'SET_LOGIN':
+      case 'SET_USER_STATUS':
         return {
           ...state,
           ...initialState(),

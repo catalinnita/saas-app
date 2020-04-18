@@ -12,10 +12,11 @@ const LoginPage = () => {
 
   const doLogin = async (parameters) => {
     try {
-      const userData = await loginServices(parameters);
-      Cookies.set('UD', userData);
+      const data = await loginServices(parameters);
+
+      Cookies.set('UD', data);
       dispatch({
-        type: 'SET_LOGIN',
+        type: 'SET_USER_STATUS',
       });
     }
     catch(err) {
